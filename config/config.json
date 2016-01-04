@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "bzbaser88aspostgres",
+    "database": "seq_test_dev",
+    "host": "192.168.1.113",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "bzbaser88aspostgres",
+    "database": "seq_test_test",
+    "host": "192.168.1.113",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "bzbaser88aspostgres",
+    "database": "seq_test_prod",
+    "host": "192.168.1.113",
+    "dialect": "postgres"
+  }
+}

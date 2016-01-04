@@ -1,0 +1,109 @@
+/*body {*/
+  /*padding: 50px;*/
+  /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
+/*}*/
+
+/*a {*/
+  /*color: #00B7FF;*/
+/*}*/
+
+body{
+  background-color: #fafafa;
+}
+
+#ddd{
+  background-color: #fafafa;
+}
+
+
+.horizontal-section {
+  background-color: white;
+  /*padding: 24px;*/
+  /*min-width: 200px;*/
+
+  /*@apply(--shadow-elevation-2dp);*/
+}
+
+.top-padded {
+  padding-top: 100px;
+}
+
+.warning-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.horizontal-center {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: block;
+  /* Align the bootstrap's container vertically */
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  /* In legacy web browsers such as Firefox 9
+  we need to specify the width of the flex container */
+  width: 100%;
+  /* Also 'margin: 0 auto' doesn't have any effect on flex items in such web browsers
+  hence the bootstrap's container won't be aligned to the center anymore.
+
+  Therefore, we should use the following declarations to get it centered again */
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.text-default {
+  color: #555;
+}
+
+.text-gray{
+  color: #AAA;
+}
+
+.card-heading{
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 15px;
+}
+
+.fab{
+  display: block;
+  margin-bottom: 24px;
+  margin-left: auto;
+  margin-right: 24px;
+  -webkit-transform: translateZ(0);
+}
+
+.avatar {
+  height: 0px;
+  width: 0px;
+  border-radius: 0px;
+  box-sizing: border-box;
+  background-color: #DDD;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  @apply(--layout-horizontal);
+  padding: 7px;
+  border-radius: 8px;
+  background-color: white;
+  border: 1px solid #ddd;
+}
+
+.pad {
+  padding: 0 2px;
+  @apply(--layout-flex);
+  @apply(--layout-vertical);
+}
+
+.primary {
+  font-size: 16px;
+  font-weight: normal;
+}

@@ -1,0 +1,53 @@
+doctype html
+html(ng-app='linkerapp')
+    head
+        title Linker
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/kendo.common.min.css')
+        link(rel='stylesheet', href='/stylesheets/kendo.custom.css')
+        link(rel='stylesheet', href='/modules/angular-material/angular-material.min.css')
+        link(rel='stylesheet', href='/modules/angular-material-icons/angular-material-icons.css')
+        link(rel='stylesheet', href='/modules/twitter-bootstrap-3.0.0/dist/css/bootstrap.min.css')
+
+    body(id="ddd")
+
+        div(class='navbar navbar-default navbar-fixed-top')
+            div(class='container')
+                div(class='navbar-header')
+                    a(href='/')
+                        img(src='/images/logo-no-bg.png')
+                ul(class='nav navbar-nav navbar-right')
+                    if (user)
+                        li
+                            p(class='navbar-text')
+                                b
+                                    #{user.username}
+                                a(href='/logout') Wyloguj'
+                    else
+                        li
+                            a(href='/login') Zaloguj
+        div(class='container top-padded')
+            block content
+            div(class='pull-left text-gray')
+                h6 Wersja: #{version}
+
+    script(src='/modules/jquery/dist/jquery.min.js')
+    script(src='/modules/twitter-bootstrap-3.0.0/dist/js/bootstrap.min.js')
+    script(src='/modules/angular/angular.min.js')
+
+    script(src='/javascripts/kendo/kendo.all.min.js')
+    script(src='/javascripts/kendo/kendo.culture.pl.min.js')
+    script(src='/javascripts/kendo/kendo.culture.pl-PL.min.js')
+    script(src='/javascripts/kendo/kendo.custom.js')
+    script(src='/javascripts/linker-grid.js')
+    script(src='/javascripts/linker-det-grid.js')
+    script(src='/javascripts/angular/linkerapp.js')
+    script(src='/javascripts/angular/addeditcontroller.js')
+    script(src='/modules/angular-material/angular-material.js')
+    script(src='/modules/angular-animate/angular-animate.min.js')
+    script(src='/modules/angular-aria/angular-aria.min.js')
+    script(src='/modules/angular-material-icons/angular-material-icons.min.js')
+    script().
+        kendo.culture("pl-PL");

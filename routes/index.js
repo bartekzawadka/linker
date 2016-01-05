@@ -47,35 +47,43 @@ router.post('/addupdate', function(req, res){
     }
 });
 
-router.get('/getissues', function(req, res){
-  var urlParts = url.parse(req.url, true);
+//router.get('/getissues', function(req, res){
+//  var urlParts = url.parse(req.url, true);
+//
+//  models.issue.findAndCountAll({
+//    order: [["\"updatedAt\"", "DESC"]],
+//    offset: urlParts.query.skip,
+//    limit: urlParts.query.take
+//  }).then(function(result){
+//    res.writeHead(200, {"Content-Type": "application/json"});
+//    res.end(JSON.stringify(result));
+//  });
+//});
 
-  models.issue.findAndCountAll({
-    order: [["\"updatedAt\"", "DESC"]],
-    offset: urlParts.query.skip,
-    limit: urlParts.query.take
-  }).then(function(result){
-    res.writeHead(200, {"Content-Type": "application/json"});
-    res.end(JSON.stringify(result));
-  });
+//router.get('/getlinks/:id', function(req, res){
+//  models.link.findAll({
+//    where: {
+//      issueId: req.params.id
+//    },
+//    order: "\"updatedAt\" DESC"
+//  }).then(function(result){
+//    res.writeHead(200, {"Content-Type": "application/json"});
+//    res.end(JSON.stringify(result));
+//  });
+//});
+//
+//
+//router.get('/addissue', function(req, res){
+//  res.render('addissue',{
+//    version: pj.version});
+//});
+
+router.get('/issues', function(req, res){
+  res.render('issues');
 });
 
-router.get('/getlinks/:id', function(req, res){
-  models.link.findAll({
-    where: {
-      issueId: req.params.id
-    },
-    order: "\"updatedAt\" DESC"
-  }).then(function(result){
-    res.writeHead(200, {"Content-Type": "application/json"});
-    res.end(JSON.stringify(result));
-  });
-});
-
-
-router.get('/add', function(req, res){
-  res.render('issue',{
-    version: pj.version});
+router.get('/addissue', function(req, res){
+  res.render('addissue');
 });
 
 router.get('/edit/getissue/:iid', function(req, res){

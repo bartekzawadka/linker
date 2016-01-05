@@ -1,12 +1,13 @@
-extends layout
+//
+   Created by Bartek Zawadka on 2016-01-04.
+extends index
 
 
 
-block content
+block body
 
     div(class='horizontal-center')
-        div(class='warning-container', ng-controller='aectrl')
-            form(id='addeditform', ng-submit='submit()')
+        div(class='warning-container')
                 md-card
                     md-card-title
                         span(class='md-headline') Rejestracja
@@ -15,11 +16,11 @@ block content
                             input(type='hidden', ng-init='issue_id=$issue_id')
                             md-input-container(class="md-block" flex-gt-sm)
                                 label Tytuł
-                                input(ng-model='formData.title')
+                                input(ng-model='form.title')
                             md-input-container(class="md-block" flex-gt-sm)
                                 label Opis
                                 //textarea(md-maxlength='255' rows='5')
-                                input(ng-model='formData.description')
+                                input(ng-model='form.description')
                             md-switch(class='md-primary', ng-model='isSolved') Oznacz jako rozwiązane
                             br
 
@@ -42,9 +43,5 @@ block content
                     md-divider
                     md-card-actions
                         div(class='pull-right')
-                            md-button(class='md-raised md-primary', type='submit') Zapisz
+                            md-button(class='md-raised md-primary', ng-click='registerIssue()') Zapisz
                             md-button(class='md-raised', onclick="javascript:window.location.href='/';") Anuluj
-
-
-//div(class='pull-left text-gray')
-//    h6 Wersja: #{version}

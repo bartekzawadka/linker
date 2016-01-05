@@ -11,7 +11,7 @@ $(document).ready(function(){
            serverFiltering: true,
            serverSorting: true,
            transport: {
-               read: '/getissues',
+               read: '/api/getissues',
                dataType: 'jsonp'
            },
            schema: {
@@ -103,7 +103,7 @@ function detailInit(e){
     detailRow.find(".detail").kendoGrid({
        dataSource:{
            transport:{
-               read: '/getlinks/'+ e.data.id,
+               read: '/api/getlinks/'+ e.data.id,
                dataType: 'jsonp'
            },
            schema: {

@@ -1,19 +1,47 @@
 extends layout
 
 
+block body
+    div(class='navbar navbar-default navbar-fixed-top')
+        div(class='container')
+            div(class='navbar-header')
+                a(href='/')
+                    img(src='/images/logo-no-bg.png')
+            ul(class='nav navbar-nav navbar-right')
+                if (user)
+                    li
+                        p(class='navbar-text')
+                            b
+                                #{user.username}
+                            a(href='/logout') Wyloguj'
+                else
+                    li
+                        a(href='/login') Zaloguj
+    div(class='container top-padded')
+        div(ng-view)
+        div(class='pull-left text-gray')
+           h6 Wersja: #{version}
+        div(class='bottom-padded')
 
-block content
 
-    div(class='horizontal-section')
-        div(id='grid', class='md-whiteframe-3dp')
+    script(src='/modules/jquery/dist/jquery.min.js')
+    script(src='/modules/twitter-bootstrap-3.0.0/dist/js/bootstrap.min.js')
+    script(src='/modules/angular/angular.js')
+    script(src='/modules/angular-route/angular-route.js')
+    script(src='/javascripts/angular/linkerapp.js')
 
-    div(class='nav navbar-nav navbar-fixed-bottom')
-        div(class='navbar-right fab')
-            md-fab-trigger
-                md-button(aria-label='menu', class='md-fab md-warn', ng-href='/add')
-                    ng-md-icon(icon='add')
+    script(src='/javascripts/kendo/kendo.all.min.js')
+    script(src='/javascripts/kendo/kendo.culture.pl.min.js')
+    script(src='/javascripts/kendo/kendo.culture.pl-PL.min.js')
+    script(src='/javascripts/kendo/kendo.custom.js')
+    script(src='/javascripts/linker-grid.js')
+    script(src='/javascripts/linker-det-grid.js')
+    //script(src='/javascripts/angular/addeditcontroller.js')
+    //script(src='/javascripts/angular/indexcontroller.js')
+    script(src='/modules/angular-material/angular-material.js')
+    script(src='/modules/angular-animate/angular-animate.min.js')
+    script(src='/modules/angular-aria/angular-aria.min.js')
+    script(src='/modules/angular-material-icons/angular-material-icons.min.js')
 
-
-    script(id="dettemplate", type="text/x-kendo-template").
-        <div class="detail">
-        </div>
+    script().
+        kendo.culture("pl-PL");

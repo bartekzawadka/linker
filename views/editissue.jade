@@ -1,0 +1,50 @@
+//
+   Created by barte_000 on 2016-01-04.
+//
+   Created by Bartek Zawadka on 2016-01-04.
+extends layout
+
+
+
+block body
+
+    div(class='horizontal-center')
+        div(class='warning-container', ng-controller='aectrl')
+            md-card
+                md-card-title
+                    span(class='md-headline') Rejestracja
+                md-card-content
+                    div
+                        input(type='hidden', ng-init='issue_id=$issue_id')
+                        md-input-container(class="md-block" flex-gt-sm)
+                            label Tytuł
+                            input(ng-model='formData.title')
+                        md-input-container(class="md-block" flex-gt-sm)
+                            label Opis
+                            //textarea(md-maxlength='255' rows='5')
+                            input(ng-model='formData.description')
+                        md-switch(class='md-primary', ng-model='isSolved') Oznacz jako rozwiązane
+                        br
+
+                        section(layout='col' layout-sm='column')
+                            md-input-container(class='md-block', flex-gt-sm)
+                                label Wprowadź adres odnośnika
+                                input(type='text', ng-model='newItem')
+                            span(class='suffix' layout='col' layout-sm='column')
+                                a(ng-click='addlink()' style='padding-top: 25px;')
+                                    ng-md-icon(icon='add')
+
+                    div(ng-repeat='link in links')
+                        div(class='item', layout='col', layout-sm'column')
+                            div(class='pad' flex-gt-sm)
+                                div(class='primary')
+                                    a(href='{{link}}', target='_blank') {{link}}
+                            a(ng-click='removelink($index)')
+                                ng-md-icon(icon='remove')
+
+                md-divider
+                md-card-actions
+                    div(class='pull-right')
+                        md-button(class='md-raised md-primary', ng-click='editPost()') Zapisz
+                        md-button(class='md-raised', onclick="javascript:window.location.href='/';") Anuluj
+

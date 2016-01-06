@@ -79,11 +79,11 @@ router.post('/addupdate', function(req, res){
 //});
 
 router.get('/issues', function(req, res){
-  res.render('issues');
+  res.render('partials/issues');
 });
 
 router.get('/addissue', function(req, res){
-  res.render('addissue');
+  res.render('partials/addissue');
 });
 
 router.get('/edit/getissue/:iid', function(req, res){

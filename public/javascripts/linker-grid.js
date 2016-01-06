@@ -4,14 +4,16 @@
 $(document).ready(function(){
    //var issuesData = getData();
 
-   $('#grid').kendoGrid({
+    var kalambury = $('#grid');
+
+   kalambury.kendoGrid({
        dataSource: {
            pageSize: 20,
            serverPaging: true,
            serverFiltering: true,
            serverSorting: true,
            transport: {
-               read: '/api/getissues',
+               //read: '/api/getissues',
                dataType: 'jsonp'
            },
            schema: {
@@ -29,8 +31,8 @@ $(document).ready(function(){
                }
            }
        },
-       detailTemplate: kendo.template($("#dettemplate").html()),
-       detailInit: detailInit,
+       //detailTemplate: kendo.template($("#dettemplate").html()),
+       //detailInit: detailInit,
        scrollable: false,
        filterable: true,
        sortable: true,
@@ -39,7 +41,7 @@ $(document).ready(function(){
            {
              template: function(dataItem){
                  if(dataItem.solveDate)
-                    return "<img src='/images/green-icon.png' alt='' width='16' title='Rozwiązane'/>";
+                    return "<img src='../images/green-icon.png' alt='' width='16' title='Rozwiązane'/>";
                  else
                     return "";
              }

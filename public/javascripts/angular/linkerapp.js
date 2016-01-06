@@ -4,10 +4,10 @@
 var ngapp = angular.module('linkerapp', ['ngMaterial', 'ngMdIcons', 'ngRoute']);
 
 ngapp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
-   $routeProvider.when('/',{templateUrl: 'issues'}).when('/addissue',{
+   $routeProvider.when('/',{templateUrl: 'issues', controller: 'issuesCtrl'}).when('/addissue',{
         controller: 'addController', templateUrl: 'addissue'
-   }).otherwise({redirectTo: "/"});
-    $locationProvider.html5Mode({enabled: true});
+   }).otherwise({redirectTo: '/'});
+    $locationProvider.html5Mode({enabled: true, requireBase: true});
 }]);
 
 var controllers = {};

@@ -1,10 +1,13 @@
 div(class='horizontal-section')
-    div(id='grid', class='md-whiteframe-3dp')
+    //div(id='grid', class='md-whiteframe-3dp')
+    div(class='md-whiteframe-3dp')
+        kendo-grid(k-options='mainGridOptions')
+            div(k-detail-template)
 
     div(class='nav navbar-nav navbar-fixed-bottom')
         div(class='navbar-right fab')
             md-fab-trigger
-                md-button(aria-label='menu', class='md-fab md-warn', ng-href='/addissue')
+                md-button(aria-label='menu', class='md-fab md-warn', ng-href='/issue')
                     ng-md-icon(icon='add')
 
 

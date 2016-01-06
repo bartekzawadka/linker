@@ -18,30 +18,12 @@ block body
                     li
                         a(href='/login') Zaloguj
     div(class='container top-padded')
-        div(ng-view)
+        ng-view
 
         div(class='pull-left text-gray')
            h6 Wersja: #{version}
         div(class='bottom-padded')
 
-    script(src='/modules/jquery/dist/jquery.min.js')
-    script(src='/modules/twitter-bootstrap-3.0.0/dist/js/bootstrap.min.js')
-    script(src='/modules/angular/angular.js')
-    script(src='/modules/angular-route/angular-route.js')
-    script(src='/javascripts/angular/linkerapp.js')
 
-    script(src='/javascripts/kendo/kendo.all.js')
-    script(src='/javascripts/kendo/kendo.culture.pl.min.js')
-    script(src='/javascripts/kendo/kendo.culture.pl-PL.min.js')
-    script(src='/javascripts/kendo/kendo.custom.js')
-    script(src='/javascripts/linker-grid.js')
-    script(src='/javascripts/linker-det-grid.js')
-    //script(src='/javascripts/angular/addeditcontroller.js')
-    //script(src='/javascripts/angular/indexcontroller.js')
-    script(src='/modules/angular-material/angular-material.js')
-    script(src='/modules/angular-animate/angular-animate.min.js')
-    script(src='/modules/angular-aria/angular-aria.min.js')
-    script(src='/modules/angular-material-icons/angular-material-icons.min.js')
-
-    script().
-        kendo.culture("pl-PL");
+    //script().
+    //    kendo.culture("pl-PL");

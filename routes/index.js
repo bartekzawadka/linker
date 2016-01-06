@@ -47,58 +47,12 @@ router.post('/addupdate', function(req, res){
     }
 });
 
-//router.get('/getissues', function(req, res){
-//  var urlParts = url.parse(req.url, true);
-//
-//  models.issue.findAndCountAll({
-//    order: [["\"updatedAt\"", "DESC"]],
-//    offset: urlParts.query.skip,
-//    limit: urlParts.query.take
-//  }).then(function(result){
-//    res.writeHead(200, {"Content-Type": "application/json"});
-//    res.end(JSON.stringify(result));
-//  });
-//});
-
-//router.get('/getlinks/:id', function(req, res){
-//  models.link.findAll({
-//    where: {
-//      issueId: req.params.id
-//    },
-//    order: "\"updatedAt\" DESC"
-//  }).then(function(result){
-//    res.writeHead(200, {"Content-Type": "application/json"});
-//    res.end(JSON.stringify(result));
-//  });
-//});
-//
-//
-//router.get('/addissue', function(req, res){
-//  res.render('addissue',{
-//    version: pj.version});
-//});
-
 router.get('/issues', function(req, res){
   res.render('partials/issues');
 });
 
-router.get('/addissue', function(req, res){
-  res.render('partials/addissue');
-});
-
-router.get('/edit/getissue/:iid', function(req, res){
-  var iid = req.params.iid;
-  models.issue.findOne({where: {id: iid}}).then(function(iss){
-    res.send(iss.dataValues);
-  });
-});
-
-router.get('/edit/:iid', function(req, res){
-  res.render('issue', {version: pj.version, issue_id: req.params.iid});
-  //var iid = req.params.iid;
-  //models.issue.findOne({where: {id: iid}}).then(function(iss) {
-  //  res.render('issue', {version: pj.version, id: iid, formData: iss});
-  //});
+router.get('/issue', function(req, res){
+  res.render('partials/addeditissue');
 });
 
 module.exports = router;

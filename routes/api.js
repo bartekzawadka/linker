@@ -37,8 +37,8 @@ router.get('/getlinks/:id', function(req, res){
 });
 
 router.get('/getissue/:id', function(req, res){
-    models.issue.findOne({where: {id: iid}}).then(function(iss){
-        res.json(iss);
+    models.issue.findOne({where: {id: req.params.id}, include: {model: models.link, attributes:['link']}}).then(function(iss){
+        res.json({"form": iss});
     });
 });
 
@@ -47,12 +47,22 @@ router.post('/addissue', function(req, res){
     console.log('issue added (title: '+req.body.title+')');
 });
 
-/** Updates specific issue */
 router.get('/updateissue', function(req, res){
 
 });
 
-router.put('/updateissue', function(req, res){
+/** Updates specific issue */
+router.post('/issue', function(req, res){
+
+    var data = req.body;
+
+    if(data.id)
+    {
+        //todo: UPDATE
+    } else {
+        //todo: ADD
+    }
+
 
 });
 

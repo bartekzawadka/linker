@@ -5,16 +5,27 @@ div(class='horizontal-center')
                 span(class='md-headline') Rejestracja
             md-card-content
                 div
-                    input(type='hidden', ng-init='issue_id=$issue_id')
+                    //input(type='hidden', ng-model='form.id')
                     md-input-container(class="md-block" flex-gt-sm)
                         label Tytuł
                         input(ng-model='form.title')
                     md-input-container(class="md-block" flex-gt-sm)
                         label Opis
-                        //textarea(md-maxlength='255' rows='5')
                         input(ng-model='form.description')
-                    md-switch(class='md-primary', ng-model='isSolved') Oznacz jako rozwiązane
+                    md-switch(class='md-primary', ng-model='form.isSolved') Oznacz jako rozwiązane
                     br
+
+                    div(ng-if='form.id')
+                        div(class='line')
+                            h5 Data rejestracji:
+                                span(ng-bind="form.createdAt | date: 'yyyy-MM-dd HH:mm:ss'")
+                        div(class='line')
+                            h5 Data modyfikacji:
+                                span(ng-bind="form.updatedAt | date: 'yyyy-MM-dd HH:mm:ss'")
+                        div(ng-if='form.isSolved', class='line')
+                            h5 Data rozwiązania:
+                                span(ng-bind="form.solveDate | date: 'yyyy-MM-dd HH:mm:ss'")
+
 
                     section(layout='col' layout-sm='column')
                         md-input-container(class='md-block', flex-gt-sm)
@@ -35,5 +46,5 @@ div(class='horizontal-center')
             md-divider
             md-card-actions
                 div(class='pull-right')
-                    md-button(class='md-raised md-primary', ng-click='registerIssue()') Zapisz
+                    md-button(class='md-raised md-primary', ng-click='submitForm()') Zapisz
                     md-button(class='md-raised', onclick="javascript:window.location.href='/';") Anuluj

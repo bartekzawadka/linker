@@ -1,17 +1,36 @@
 /**
- * Created by barte_000 on 2016-01-03.
+ * Created by barte_000 on 2016-01-06.
  */
-ngapp.controller('aectrl', ['$scope', '$window','$http',function($scope, $window, $http){
+function AddEditCtrl($scope, $http, $routeParams){
 
+    if($routeParams.id) {
+        editMode();
+    } else {
+        registrationMode();
+    }
 
-    $scope.links = [];
-    $scope.isSolved = false;
+    function registrationMode(){
+        $scope.form = {isSolved: false};
+        $scope.links = [];
 
-    $http.get('/edit/getissue/'+$scope.issue_id).success(function(data){
-        $scope.formData = data;
-    }).error(function(data){
-        console.log(data);
-    });
+    }
+
+    function editMode(){
+        $http.get('/api/getissue/'+$routeParams.id).success(function(e){
+
+            var formProcessed = e.form;
+            formProcessed.isSolved = (e.form.solveDate && e.form.solveDate!=null);
+
+            $scope.links = $.map(formProcessed.links, function(el){
+               return el.link;
+            });
+
+            $scope.form = formProcessed;
+
+        }).error(function(e){
+            console.log(e);
+        });
+    }
 
     $scope.addlink = function(){
         $scope.links.push($scope.newItem);
@@ -24,26 +43,12 @@ ngapp.controller('aectrl', ['$scope', '$window','$http',function($scope, $window
         }
     };
 
-    $scope.submit = function(){
-
-        $scope.formData.links = $scope.links;
-        if($scope.isSolved)
-            $scope.formData.solveDate = new Date();
-        else
-            $scope.formData.solveDate = null;
-
-        $http({
-            url: "/addupdate",
-            data: $scope.formData,
-            method: "POST",
-            headers: {'Content-Type': 'application/json'}
-        }).success(function(data){
-            $window.location.href = '/'
-            //$scope.$apply();
+    $scope.submitForm = function(){
+        var form = $scope.form;
+        form.links = $scope.links;
+        $http.post('/api/updateissue', form).
+            success(function(data){
+                $location.path('/');
         });
-
-        //$http.post('/addupdate', $scope.formData);
-
-        //$http.post('/addupdate', $scope.formData);
-    };
-}]);
+    }
+}

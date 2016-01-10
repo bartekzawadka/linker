@@ -2,7 +2,8 @@
  * Created by barte_000 on 2016-01-06.
  */
 
-function IssuesCtrl($scope, $location){
+function IssuesCtrl($scope, $location, $mdDialog, $http, $route){
+    $mdDialog.hide();
 
     $scope.mainGridOptions = {
         dataSource: {
@@ -75,6 +76,19 @@ function IssuesCtrl($scope, $location){
             }]
     };
 
+    $scope.showItemDeleteConfirmation = function(data){
+        var confirm = $mdDialog.confirm()
+            .title('Nieodrwacalnie usuwasz wpis')
+            .content('Czy na pewno chcesz usunąć ten rekord?')
+            .ok('TAK')
+            .cancel('NIE');
+        $mdDialog.show(confirm).then(function(){
+            $http.delete('/api/issue/'+data.id).success(function(){
+                $route.reload();
+            });
+        });
+    };
+
     function detInit(e){
         var detailRow = e.detailRow;
 
@@ -121,6 +135,7 @@ function IssuesCtrl($scope, $location){
     }
 
     function deleteItem(e){
-
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $scope.showItemDeleteConfirmation(dataItem);
     }
 }

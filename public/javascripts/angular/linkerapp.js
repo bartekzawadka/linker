@@ -1,7 +1,7 @@
 /**
  * Created by barte_000 on 2015-12-31.
  */
-var ngapp = angular.module('linkerapp', ['ngMaterial', 'ngMdIcons', 'ngRoute', 'kendo.directives']);
+var ngapp = angular.module('linkerapp', ['ngMaterial', 'ngMdIcons', 'ngRoute', 'ngMessages', 'kendo.directives']);
 
 ngapp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
    $routeProvider.when('/',{templateUrl: 'issues', controller: IssuesCtrl}).when('/issue',{

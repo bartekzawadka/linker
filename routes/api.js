@@ -43,15 +43,6 @@ router.get('/getissue/:id', function(req, res){
     });
 });
 
-/** Posts new issue */
-router.post('/addissue', function(req, res){
-    console.log('issue added (title: '+req.body.title+')');
-});
-
-router.get('/updateissue', function(req, res){
-
-});
-
 /** Updates specific issue */
 router.post('/issue', function(req, res){
 
@@ -98,16 +89,12 @@ router.post('/issue', function(req, res){
                     console.log(e);
                 });
         }).catch(function(e){
-            console.log('poracha...');
+            console.log(e);
         });
 
 
     } else {
-        //todo: ADD
-
         var k = models.issue.create({title: data.title, description: data.description, solveDate: data.solveDate}).then(function(record){
-            //console.log('upserted');
-
             asy.each(data.links, function(item, callback){
                 models.link.create({
                     link: item,
@@ -125,26 +112,6 @@ router.post('/issue', function(req, res){
                     res.end();
                 }
             });
-            //asy.each(data.links, function(item, callback){
-            //    models.link.create({
-            //        link: item,
-            //        issueId: data.id
-            //    }).then(function(e){
-            //        console.log('link created');
-            //        callback();
-            //    }).catch(function(e){
-            //        console.log('link creation failed:');
-            //        console.log(e);
-            //        callback(e);
-            //    })
-            //}, function(error){
-            //    if(error) {
-            //        console.log(error);
-            //    }
-            //    else{
-            //        res.end();
-            //    }
-            //});
         }).catch(function(e){
             console.log('upsert error:');
             console.log(e);
@@ -152,6 +119,16 @@ router.post('/issue', function(req, res){
     }
 
 
+});
+
+/* Removes issue record for selected id */
+router.delete('/issue/:id', function(req, res){
+    if(req.params && req.params.id) {
+        models.issue.destroy({where: {id: req.params.id}}).then(function(data){
+            console.log(data);
+            res.end();
+        });
+    }
 });
 
 module.exports = router;

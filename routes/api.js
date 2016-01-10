@@ -43,13 +43,10 @@ router.get('/getissue/:id', function(req, res){
     });
 });
 
-/** Posts new issue */
-router.post('/addissue', function(req, res){
-    console.log('issue added (title: '+req.body.title+')');
-});
-
-router.get('/updateissue', function(req, res){
-
+router.get('/isauthenticated', function(req, res){
+    if(req.user)
+        var auth = true;
+    res.json({"isauthenticated": auth});
 });
 
 /** Updates specific issue */
@@ -125,26 +122,6 @@ router.post('/issue', function(req, res){
                     res.end();
                 }
             });
-            //asy.each(data.links, function(item, callback){
-            //    models.link.create({
-            //        link: item,
-            //        issueId: data.id
-            //    }).then(function(e){
-            //        console.log('link created');
-            //        callback();
-            //    }).catch(function(e){
-            //        console.log('link creation failed:');
-            //        console.log(e);
-            //        callback(e);
-            //    })
-            //}, function(error){
-            //    if(error) {
-            //        console.log(error);
-            //    }
-            //    else{
-            //        res.end();
-            //    }
-            //});
         }).catch(function(e){
             console.log('upsert error:');
             console.log(e);

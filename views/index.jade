@@ -12,8 +12,11 @@ block body
                     li
                         p(class='navbar-text')
                             b
-                                #{user.username}
-                            a(href='/logout') Wyloguj'
+                                span #{user}
+                            span  (
+                            span
+                                a(href='/logout') Wyloguj
+                            span )
                 else
                     li
                         a(href='/login') Zaloguj

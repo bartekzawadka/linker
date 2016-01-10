@@ -2,7 +2,7 @@
  * Created by barte_000 on 2016-01-06.
  */
 
-function IssuesCtrl($scope, $location){
+function IssuesCtrl($scope, $location, $http){
 
     $scope.mainGridOptions = {
         dataSource: {
@@ -35,6 +35,16 @@ function IssuesCtrl($scope, $location){
         filterable: true,
         sortable: true,
         pageable: true,
+        dataBound: function(){
+            $("#grid").data("kendoGrid").hideColumn(7);
+
+            $http.get('/api/isauthenticated').success(function(e){
+               if(e.isauthenticated){
+                   $("#grid").data("kendoGrid").showColumn(7);
+               }
+
+            });
+        },
         columns: [
             {
                 template: function(dataItem){
@@ -70,7 +80,8 @@ function IssuesCtrl($scope, $location){
             },{
                 command:{
                     text: "USUŃ",
-                    click: deleteItem
+                    click: deleteItem,
+                    name: "dello"
                 }
             }]
     };

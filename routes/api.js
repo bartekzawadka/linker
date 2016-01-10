@@ -7,6 +7,7 @@ var router = express.Router();
 var models  = require('../models');
 var pj = require('../package.json');
 var url = require('url');
+var asy = require('async');
 
 /** Gets all issues paginated */
 router.get('/getissues', function(req, res){
@@ -56,11 +57,98 @@ router.post('/issue', function(req, res){
 
     var data = req.body;
 
+    if(!data.links || data.links == null || data.links.length == 0){
+        return;
+    }
+
+    if(data.isSolved && data.solveDate == null) {
+        data.solveDate = new Date();
+    } else if(data.isSolved == false){
+        data.solveDate = null;
+    }
+
     if(data.id)
     {
-        //todo: UPDATE
+        models.link.destroy({where: {"\"issueId\"" : data.id}}).then(function(e){
+                models.issue.upsert({title: data.title, description: data.description, solveDate: data.solveDate, id: data.id}).then(function(e){
+                    console.log('upserted');
+
+                    asy.each(data.links, function(item, callback){
+                            models.link.create({
+                                link: item,
+                                issueId: data.id
+                            }).then(function(e){
+                                console.log('link created');
+                                callback();
+                            }).catch(function(e){
+                                console.log('link creation failed:');
+                                console.log(e);
+                                callback(e);
+                            })
+                    }, function(error){
+                        if(error) {
+                            console.log(error);
+                        }
+                        else{
+                            res.end();
+                        }
+                    });
+                }).catch(function(e){
+                    console.log('upsert error:');
+                    console.log(e);
+                });
+        }).catch(function(e){
+            console.log('poracha...');
+        });
+
+
     } else {
         //todo: ADD
+
+        var k = models.issue.create({title: data.title, description: data.description, solveDate: data.solveDate}).then(function(record){
+            //console.log('upserted');
+
+            asy.each(data.links, function(item, callback){
+                models.link.create({
+                    link: item,
+                    issueId: record.id
+                }).then(function(e){
+                    callback();
+                }).catch(function(e){
+                    callback(e);
+                })
+            }, function(error){
+                if(error) {
+                    console.log(error);
+                }
+                else{
+                    res.end();
+                }
+            });
+            //asy.each(data.links, function(item, callback){
+            //    models.link.create({
+            //        link: item,
+            //        issueId: data.id
+            //    }).then(function(e){
+            //        console.log('link created');
+            //        callback();
+            //    }).catch(function(e){
+            //        console.log('link creation failed:');
+            //        console.log(e);
+            //        callback(e);
+            //    })
+            //}, function(error){
+            //    if(error) {
+            //        console.log(error);
+            //    }
+            //    else{
+            //        res.end();
+            //    }
+            //});
+        }).catch(function(e){
+            console.log('upsert error:');
+            console.log(e);
+        });
     }
 
 

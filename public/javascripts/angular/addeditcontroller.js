@@ -1,7 +1,7 @@
 /**
  * Created by barte_000 on 2016-01-06.
  */
-function AddEditCtrl($scope, $http, $routeParams){
+function AddEditCtrl($scope, $http, $routeParams, $location){
 
     if($routeParams.id) {
         editMode();
@@ -12,7 +12,7 @@ function AddEditCtrl($scope, $http, $routeParams){
     function registrationMode(){
         $scope.form = {isSolved: false};
         $scope.links = [];
-
+        $scope.header = 'Rejestracja';
     }
 
     function editMode(){
@@ -24,6 +24,9 @@ function AddEditCtrl($scope, $http, $routeParams){
             $scope.links = $.map(formProcessed.links, function(el){
                return el.link;
             });
+
+            $scope.wasMarkedAsSolved = formProcessed.isSolved;
+            $scope.header = 'Edycja';
 
             $scope.form = formProcessed;
 
@@ -46,9 +49,11 @@ function AddEditCtrl($scope, $http, $routeParams){
     $scope.submitForm = function(){
         var form = $scope.form;
         form.links = $scope.links;
-        $http.post('/api/updateissue', form).
+        $http.post('/api/issue', form).
             success(function(data){
                 $location.path('/');
+        }).error(function(data){
+            console.log(data);
         });
     }
 }

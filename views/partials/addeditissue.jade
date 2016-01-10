@@ -2,7 +2,7 @@ div(class='horizontal-center')
     div(class='warning-container')
         md-card
             md-card-title
-                span(class='md-headline') Rejestracja
+                span(class='md-headline', ng-bind="header")
             md-card-content
                 div
                     //input(type='hidden', ng-model='form.id')
@@ -22,7 +22,7 @@ div(class='horizontal-center')
                         div(class='line')
                             h5 Data modyfikacji:
                                 span(ng-bind="form.updatedAt | date: 'yyyy-MM-dd HH:mm:ss'")
-                        div(ng-if='form.isSolved', class='line')
+                        div(ng-if='wasMarkedAsSolved', class='line')
                             h5 Data rozwiązania:
                                 span(ng-bind="form.solveDate | date: 'yyyy-MM-dd HH:mm:ss'")
 

@@ -116,15 +116,6 @@ function IssuesCtrl($scope, $location, $mdDialog, $http, $route){
                 title: "Odnośnik",
                 template: "<a href='#= link #' target='_blank'>#= link #</a>"
             }]
-            //},{
-            //    field: "createdAt",
-            //    title: "Data utworzenia",
-            //    format: "{0:yyyy-MM-dd}"
-            //},{
-            //    field: "updatedAt",
-            //    title: "Data modyfikacji",
-            //    format: "{0:yyyy-MM-dd}"
-            //}]
         });
     }
 

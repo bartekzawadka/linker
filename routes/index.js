@@ -13,13 +13,11 @@ router.get('/', function(req, res){
     }
 
     res.render('index', {
-      //issues: getData(),
       version: pj.version, user: user});
 });
 
 router.get('/issues',
     function(req, res) {
-        //res.json({ username: req.user.username, email: req.user.emails[0].value });
         res.render('partials/issues');
     });
 

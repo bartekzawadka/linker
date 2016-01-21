@@ -100,8 +100,6 @@ router.post('/issue', function(req, res){
 
 
     } else {
-        //todo: ADD
-
         var k = models.issue.create({title: data.title, description: data.description, solveDate: data.solveDate}).then(function(record){
             //console.log('upserted');
 

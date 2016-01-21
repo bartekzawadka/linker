@@ -1,6 +1,7 @@
 //
    Created by barte_000 on 2016-01-10.
 div(class='horizontal-section')
+    form(name='f' ng-submit='login(f.$valid)')
         md-card(class='warning-container')
             md-card-content
                 h2(class='md-title card-heading') Logowanie
@@ -16,5 +17,5 @@ div(class='horizontal-section')
                         div(ng-message='required') Hasło jest wymagane
             md-card-actions
                 div(class='pull-right')
-                    md-button(class='md-raised md-primary', ng-click='login()', ng-enabled='user.$valid && password.$valid') Zaloguj
+                    md-button(class='md-raised md-primary', type='submit', ng-disabled='f.$invalid') Zaloguj
                     md-button(class='md-raised', onclick="javascript:window.location.href='/';") Anuluj

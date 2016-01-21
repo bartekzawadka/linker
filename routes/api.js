@@ -43,6 +43,12 @@ router.get('/getissue/:id', function(req, res){
     });
 });
 
+router.get('/isauthenticated', function(req, res){
+    if(req.user)
+        var auth = true;
+    res.json({"isauthenticated": auth});
+});
+
 /** Updates specific issue */
 router.post('/issue', function(req, res){
 

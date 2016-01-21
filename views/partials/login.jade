@@ -1,0 +1,21 @@
+//
+   Created by barte_000 on 2016-01-10.
+div(class='horizontal-section')
+    form(name='f' ng-submit='login(f.$valid)')
+        md-card(class='warning-container')
+            md-card-content
+                h2(class='md-title card-heading') Logowanie
+                md-input-container(class="md-block" flex-gt-sm)
+                    label Nazwa użytkownika
+                    input(required,  name='user', ng-model='form.user')
+                    div(ng-messages='user.$error')
+                        div(ng-message='required') Nazwa użytkownika jest wymagana
+                md-input-container(class="md-block" flex-gt-sm)
+                    label Hasło
+                    input(type='password', required,  name='password', ng-model='form.access_token')
+                    div(ng-messages='password.$error')
+                        div(ng-message='required') Hasło jest wymagane
+            md-card-actions
+                div(class='pull-right')
+                    md-button(class='md-raised md-primary', type='submit', ng-disabled='f.$invalid') Zaloguj
+                    md-button(class='md-raised', onclick="javascript:window.location.href='/';") Anuluj

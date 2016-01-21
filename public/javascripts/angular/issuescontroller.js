@@ -36,6 +36,16 @@ function IssuesCtrl($scope, $location, $mdDialog, $http, $route){
         filterable: true,
         sortable: true,
         pageable: true,
+        dataBound: function(){
+            $("#grid").data("kendoGrid").hideColumn(7);
+
+            $http.get('/api/isauthenticated').success(function(e){
+               if(e.isauthenticated){
+                   $("#grid").data("kendoGrid").showColumn(7);
+               }
+
+            });
+        },
         columns: [
             {
                 template: function(dataItem){
@@ -71,7 +81,8 @@ function IssuesCtrl($scope, $location, $mdDialog, $http, $route){
             },{
                 command:{
                     text: "USUŃ",
-                    click: deleteItem
+                    click: deleteItem,
+                    name: "dello"
                 }
             }]
     };

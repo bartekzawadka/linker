@@ -8,12 +8,12 @@ div(class='horizontal-section')
                 md-input-container(class="md-block" flex-gt-sm)
                     label Nazwa użytkownika
                     input(required,  name='user', ng-model='form.user')
-                    div(ng-messages='user.$error')
+                    div(ng-messages='f.user.$error')
                         div(ng-message='required') Nazwa użytkownika jest wymagana
                 md-input-container(class="md-block" flex-gt-sm)
                     label Hasło
                     input(type='password', required,  name='password', ng-model='form.access_token')
-                    div(ng-messages='password.$error')
+                    div(ng-messages='f.password.$error')
                         div(ng-message='required') Hasło jest wymagane
             md-card-actions
                 div(class='pull-right')

@@ -81,8 +81,7 @@ function IssuesCtrl($scope, $location, $mdDialog, $http, $route){
             },{
                 command:{
                     text: "USUŃ",
-                    click: deleteItem,
-                    name: "dello"
+                    click: deleteItem
                 }
             }]
     };

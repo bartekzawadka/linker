@@ -35,7 +35,11 @@ function IssuesCtrl($scope, $location, $mdDialog, $http, $route){
         scrollable: false,
         filterable: true,
         sortable: true,
-        pageable: true,
+        pageable: {
+            refresh: true,
+            pageSizes: true,
+            buttonCount: 10
+        },
         dataBound: function(){
             $("#grid").data("kendoGrid").hideColumn(7);
 

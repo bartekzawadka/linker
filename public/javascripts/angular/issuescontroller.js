@@ -34,7 +34,11 @@ function IssuesCtrl($scope, $location){
         scrollable: false,
         filterable: true,
         sortable: true,
-        pageable: true,
+        pageable: {
+            refresh: true,
+            pageSizes: true,
+            buttonCount: 10
+        },
         columns: [
             {
                 template: function(dataItem){

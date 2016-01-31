@@ -2,7 +2,7 @@
  * Created by barte_000 on 2016-01-06.
  */
 
-function IssuesCtrl($scope, $location, $mdDialog, $http, $route){
+function IssuesCtrl($scope, $location, $mdDialog, $http, $route, $window){
     $mdDialog.hide();
 
     $scope.mainGridOptions = {
@@ -88,6 +88,11 @@ function IssuesCtrl($scope, $location, $mdDialog, $http, $route){
                     click: deleteItem
                 }
             }]
+    };
+
+    $scope.reloadHome = function(){
+        $window.location.reload();
+        $location.url('/');
     };
 
     $scope.showItemDeleteConfirmation = function(data){

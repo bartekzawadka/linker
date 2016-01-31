@@ -12,4 +12,12 @@ ngapp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
        .otherwise({redirectTo: '/'});
     //$locationProvider.html5Mode({enabled: false, requireBase: false});
     $locationProvider.html5Mode(true);
+
+}]);
+
+ngapp.controller('MainController', ['$scope', '$window', '$location', function($scope, $window, $location){
+    $scope.reloadHome = function(){
+        $window.location.reload();
+        $location.url('/');
+    };
 }]);

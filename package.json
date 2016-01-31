@@ -22,6 +22,7 @@
     "express-session": "^1.12.1",
     "jade": "~1.11.0",
     "jquery": "^2.1.4",
+    "kendo-grid-filter-sequelize-converter": "^1.0.0",
     "morgan": "~1.6.1",
     "passport": "^0.3.2",
     "passport-http-bearer": "^1.0.1",

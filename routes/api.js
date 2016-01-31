@@ -8,14 +8,29 @@ var models  = require('../models');
 var pj = require('../package.json');
 var url = require('url');
 var asy = require('async');
+var Filtering = require('kendo-grid-filter-sequelize-converter');
 
-/** Gets all issues paginated */
+/** Gets all issues paginated, filtered and sorted*/
 router.get('/getissues', function(req, res){
     var urlParts = url.parse(req.url, true);
 
-    //todo: ADD SORTING AND FILTERING (parameters in url)
+    var result = null;
+    if(req.query && req.query.filter){
+        var f = new Filtering();
+        result = f.resolveFilter(req.query.filter);
+    }
+
+    var sorting = [["\"updatedAt\"", "DESC"]];
+    if(req.query.sort && req.query.sort.length > 0){
+        sorting = [[]];
+        sorting[0].push(req.query.sort[0].field);
+        if(req.query.sort[0].dir == 'desc')
+        sorting[0].push(req.query.sort[0].dir.toUpperCase());
+    }
+
     models.issue.findAndCountAll({
-        order: [["\"updatedAt\"", "DESC"]],
+        where: result,
+        order: sorting,
         offset: urlParts.query.skip,
         limit: urlParts.query.take
     }).then(function(result){

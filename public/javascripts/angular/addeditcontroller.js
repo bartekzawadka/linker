@@ -1,7 +1,7 @@
 /**
  * Created by barte_000 on 2016-01-06.
  */
-function AddEditCtrl($scope, $http, $routeParams, $location){
+function AddEditCtrl($scope, $http, $routeParams, $location, $mdDialog){
 
     if($routeParams.id) {
         editMode();
@@ -60,11 +60,32 @@ function AddEditCtrl($scope, $http, $routeParams, $location){
     $scope.submitForm = function(){
         var form = $scope.form;
         form.links = $scope.links;
+
+        if(!form.links || form.links.length == 0){
+            $scope.showIncompleteDataError('Lista odnośników powinna zawierać przynajmniej jeden element');
+            return;
+        }
+
+        if(!form.title){
+            $scope.showIncompleteDataError('Tytuł nie może być pusty');
+            return;
+        }
+
         $http.post('/api/issue', form).
             success(function(data){
                 $location.path('/');
         }).error(function(data){
             console.log(data);
         });
+    };
+
+    $scope.showIncompleteDataError = function(message){
+        $mdDialog.show(
+            $mdDialog.alert()
+                .clickOutsideToClose(true)
+                .title('Niepoprawne dane')
+                .textContent(message)
+                .ok('OK')
+        );
     }
 }

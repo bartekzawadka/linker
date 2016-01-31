@@ -9,10 +9,13 @@ function AddEditCtrl($scope, $http, $routeParams, $location){
         registrationMode();
     }
 
+    $scope.canUserRemoveLink = false;
+
     function registrationMode(){
         $scope.form = {isSolved: false};
         $scope.links = [];
         $scope.header = 'Rejestracja';
+        $scope.canUserRemoveLink = true;
     }
 
     function editMode(){
@@ -32,6 +35,14 @@ function AddEditCtrl($scope, $http, $routeParams, $location){
 
         }).error(function(e){
             console.log(e);
+        });
+
+        $http.get('/api/isauthenticated').success(function(e) {
+            if(e.isauthenticated) {
+                $scope.canUserRemoveLink = true;
+            }else{
+                $scope.canUserRemoveLink = false;
+            }
         });
     }
 

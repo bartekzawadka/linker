@@ -20,6 +20,12 @@
   background-color: #fafafa;
 }
 
+.linkdisabled{
+    cursor: not-allowed;
+    pointer-events: none;
+    color: grey;
+}
+
 .horizontal-section {
   background-color: white;
   /*padding: 24px;*/

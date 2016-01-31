@@ -39,7 +39,7 @@ div(class='horizontal-center')
                         div(class='pad' flex-gt-sm)
                             div(class='primary')
                                 a(href='{{link}}', target='_blank') {{link}}
-                        a(ng-click='removelink($index)')
+                        a(ng-click='removelink($index)', ng-class='{linkdisabled: !canUserRemoveLink}')
                             ng-md-icon(icon='remove')
 
             md-divider

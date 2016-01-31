@@ -2,27 +2,29 @@ extends layout
 
 
 block body
-    div(class='navbar navbar-default navbar-fixed-top', ng-controller='MainController')
-        div(class='container')
-            div(class='navbar-header')
-                a(href='/', ng-click='reloadHome()')
-                    img(src='/images/logo-no-bg.png')
-            ul(class='nav navbar-nav navbar-right')
-                if (user)
-                    li
-                        p(class='navbar-text')
-                            b
-                                span #{user}
-                            span  (
-                            span
-                                a(href='/logout') Wyloguj
-                            span )
-                else
-                    li
-                        a(href='/login') Zaloguj
-    div(class='container top-padded')
-        ng-view
+    div(class='background-color')
+        div(class='navbar navbar-default navbar-fixed-top', ng-controller='MainController')
+            div(class='container')
+                div(class='navbar-header')
+                    a(href='/', ng-click='reloadHome()')
+                        img(src='/images/logo-no-bg.png')
+                    div(class='navbar-right navbar-text text-gray')
+                        span(class='small-text') (v. #{version})
 
-        div(class='pull-left text-gray')
-           h6 Wersja: #{version}
-        div(class='bottom-padded')
+                ul(class='nav navbar-nav navbar-right')
+                    if (user)
+                        li
+                            p(class='navbar-text')
+                                b
+                                    span #{user}
+                                span  (
+                                span
+                                    a(href='/logout') Wyloguj
+                                span )
+                    else
+                        li
+                            a(href='/login') Zaloguj
+        div(class='container top-padded')
+            ng-view
+
+            div(class='bottom-padded')

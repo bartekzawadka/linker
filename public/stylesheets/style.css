@@ -8,9 +8,17 @@
 /*}*/
 
 #b{
+  /*background-color: #fafafa;*/
   background-color: #fafafa;
 }
 
+.small-text{
+    font-size: 10px;
+}
+
+.background-color{
+  background-color: #fafafa;
+}
 
 .horizontal-section {
   background-color: white;

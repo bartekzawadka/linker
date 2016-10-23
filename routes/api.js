@@ -4,23 +4,22 @@
 
 var express = require('express');
 var router = express.Router();
-var models  = require('../models');
-var pj = require('../package.json');
+var Issue = require('../models/issue');
 var url = require('url');
-var asy = require('async');
 var Filtering = require('kendo-grid-filter-sequelize-converter');
 
 /** Gets all issues paginated, filtered and sorted*/
 router.get('/getissues', function(req, res){
     var urlParts = url.parse(req.url, true);
 
+    //todo: Fix 'where' and sorting conditions
     var result = null;
     if(req.query && req.query.filter){
         var f = new Filtering();
         result = f.resolveFilter(req.query.filter);
     }
 
-    var sorting = [["\"updatedAt\"", "DESC"]];
+    var sorting = [["updateAt", -1]];
     if(req.query.sort && req.query.sort.length > 0){
         sorting = [[]];
         sorting[0].push(req.query.sort[0].field);
@@ -28,39 +27,28 @@ router.get('/getissues', function(req, res){
         sorting[0].push(req.query.sort[0].dir.toUpperCase());
     }
 
-    models.issue.findAndCountAll({
-        where: result,
-        order: sorting,
-        offset: urlParts.query.skip,
-        limit: urlParts.query.take
-    }).then(function(result){
-        res.writeHead(200, {"Content-Type": "application/json"});
-        res.end(JSON.stringify(result));
-    });
-});
+    Issue.count({}, function(error, count){
+        var data = {count: count};
 
-/** Gets all links for specified issue (by id) */
-router.get('/getlinks/:id', function(req, res){
-    models.link.findAll({
-        where: {
-            issueId: req.params.id
-        },
-        order: "\"updatedAt\" DESC"
-    }).then(function(result){
-        res.writeHead(200, {"Content-Type": "application/json"});
-        res.end(JSON.stringify(result));
+        Issue.find({}).where(result).sort(sorting).skip(parseInt(urlParts.query.skip)).limit(parseInt(urlParts.query.take)).exec(function(error, r){
+            data.rows = r;
+            res.writeHead(200, {"Content-Type": "application/json"});
+            res.end(JSON.stringify(data));
+        });
     });
 });
 
 router.get('/getissue/:id', function(req, res){
-    models.issue.findOne({where: {id: req.params.id}, include: {model: models.link, attributes:['link']}}).then(function(iss){
-        res.json({"form": iss});
+
+    Issue.findById(req.params.id).exec(function(error, result){
+        res.json({"form": result});
     });
 });
 
 router.get('/isauthenticated', function(req, res){
+    var auth = false;
     if(req.user)
-        var auth = true;
+        auth = true;
     res.json({"isauthenticated": auth});
 });
 
@@ -79,75 +67,27 @@ router.post('/issue', function(req, res){
         data.solveDate = null;
     }
 
-    if(data.id)
-    {
-        models.link.destroy({where: {"\"issueId\"" : data.id}}).then(function(e){
-                models.issue.upsert({title: data.title, description: data.description, solveDate: data.solveDate, id: data.id}).then(function(e){
-                    console.log('upserted');
+    var completed = function(error, result){
+        if(error) console.log(error);
+        res.end();
+    };
+    var currentDate = new Date();
+    data.updateAt = currentDate;
 
-                    asy.each(data.links, function(item, callback){
-                            models.link.create({
-                                link: item,
-                                issueId: data.id
-                            }).then(function(e){
-                                console.log('link created');
-                                callback();
-                            }).catch(function(e){
-                                console.log('link creation failed:');
-                                console.log(e);
-                                callback(e);
-                            })
-                    }, function(error){
-                        if(error) {
-                            console.log(error);
-                        }
-                        else{
-                            res.end();
-                        }
-                    });
-                }).catch(function(e){
-                    console.log('upsert error:');
-                    console.log(e);
-                });
-        }).catch(function(e){
-            console.log(e);
-        });
-
-
-    } else {
-        var k = models.issue.create({title: data.title, description: data.description, solveDate: data.solveDate}).then(function(record){
-            asy.each(data.links, function(item, callback){
-                models.link.create({
-                    link: item,
-                    issueId: record.id
-                }).then(function(e){
-                    callback();
-                }).catch(function(e){
-                    callback(e);
-                })
-            }, function(error){
-                if(error) {
-                    console.log(error);
-                }
-                else{
-                    res.end();
-                }
-            });
-        }).catch(function(e){
-            console.log('upsert error:');
-            console.log(e);
-        });
+    if(data._id){
+        Issue.findOneAndUpdate({_id: data._id}, data, {upsert: true}, completed);
+    }else{
+        data.createdAt = currentDate;
+        Issue.create(data, completed);
     }
-
 
 });
 
 /* Removes issue record for selected id */
 router.delete('/issue/:id', function(req, res){
     if(req.params && req.params.id) {
-        models.issue.destroy({where: {id: req.params.id}}).then(function(data){
-            console.log(data);
-            res.end();
+        Issue.find({_id: req.params.id}).remove(function(error, result){
+           res.end();
         });
     }
 });

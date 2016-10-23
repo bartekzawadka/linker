@@ -3,11 +3,17 @@
  */
 'use strict';
 
-module.exports = function(sequelize, DataTypes){
-    return sequelize.define("user", {
-        id: {type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true},
-        username: {type: DataTypes.STRING(100), allowNull: false},
-        fullname: {type: DataTypes.STRING(400), allowNull: false},
-        password: {type: DataTypes.STRING(1000), allowNull: false}
-    });
-};
+var mongoose = require('mongoose');
+var config = require('../config/config');
+
+var userSchema = mongoose.Schema({
+    username: {type: String, required: true},
+    fullname:{type: String, required: true},
+    password: {type: Date, required: true}
+}, {
+    collection: "Users"
+});
+
+var User = mongoose.model('User', userSchema);
+module.exports = User;
+

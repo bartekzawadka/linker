@@ -24,9 +24,7 @@ function AddEditCtrl($scope, $http, $routeParams, $location, $mdDialog){
             var formProcessed = e.form;
             formProcessed.isSolved = (e.form.solveDate && e.form.solveDate!=null);
 
-            $scope.links = $.map(formProcessed.links, function(el){
-               return el.link;
-            });
+            $scope.links = formProcessed.links;
 
             $scope.wasMarkedAsSolved = formProcessed.isSolved;
             $scope.header = 'Edycja';

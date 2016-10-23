@@ -1,5 +1,4 @@
 var express = require('express');
-var models  = require('../models');
 var pj = require('../package.json');
 var passport = require('passport');
 var url = require('url');
@@ -8,8 +7,8 @@ var router = express.Router();
 router.get('/', function(req, res){
     var a = req.isAuthenticated();
 
-    if(req.user && req.user.fullname){
-        var user = req.user.fullname;
+    if(req.user && req.user.fullName){
+        var user = req.user.fullName;
     }
 
     res.render('index', {

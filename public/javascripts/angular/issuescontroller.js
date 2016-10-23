@@ -24,7 +24,7 @@ function IssuesCtrl($scope, $location, $mdDialog, $http, $route, $window){
                         title: {type: 'string'},
                         description: {type: 'string'},
                         createdAt:{type: 'date'},
-                        updatedAt:{type:'date'},
+                        updateAt:{type:'date'},
                         solveDate: {type: 'date'}
                     }
                 }
@@ -70,7 +70,7 @@ function IssuesCtrl($scope, $location, $mdDialog, $http, $route, $window){
                 title: "Data rejestracji",
                 format: "{0:yyyy-MM-dd}"
             },{
-                field: "updatedAt",
+                field: "updateAt",
                 title: "Data modyfikacji",
                 format: "{0:yyyy-MM-dd}"
             }, {
@@ -102,7 +102,7 @@ function IssuesCtrl($scope, $location, $mdDialog, $http, $route, $window){
             .ok('TAK')
             .cancel('NIE');
         $mdDialog.show(confirm).then(function(){
-            $http.delete('/api/issue/'+data.id).success(function(){
+            $http.delete('/api/issue/'+data._id).success(function(){
                 $route.reload();
             });
         });
@@ -111,19 +111,22 @@ function IssuesCtrl($scope, $location, $mdDialog, $http, $route, $window){
     function detInit(e){
         var detailRow = e.detailRow;
 
+        var links = null;
+        if(e.data.links && e.data.links.length > 0){
+            links = [];
+            for(var i = 0;i<e.data.links.length;i++){
+                if(e.data.links.hasOwnProperty(i))
+                    links.push({link: e.data.links[i]});
+            }
+        }
+
         detailRow.find(".detail").kendoGrid({
             dataSource:{
-                transport:{
-                    read: '/api/getlinks/'+ e.data.id,
-                    dataType: 'jsonp'
-                },
+                data: links,
                 schema: {
                     model: {
-                        id: "id",
                         fields: {
-                            link: {type: 'string'},
-                            createdAt:{type: 'date'},
-                            updatedAt:{type:'date'}
+                            link: {type: 'string'}
                         }
                     }
                 }
@@ -141,7 +144,7 @@ function IssuesCtrl($scope, $location, $mdDialog, $http, $route, $window){
 
     function editItem(e){
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        $location.path('/issue/'+dataItem.id);
+        $location.path('/issue/'+dataItem._id);
     }
 
     function deleteItem(e){

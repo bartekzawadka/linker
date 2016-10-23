@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var crypto = require('crypto');
-var models  = require('./models');
+var User = require('./models/user');
 var es = require('express-session');
 
 var routes = require('./routes/index');
@@ -19,14 +19,15 @@ var app = express();
 
 
 passport.use(new BearerStrategy({passReqToCallback : true },function(req, token, done){
-    models.user.findOne({where:{username: req.body.user}}).then(function(user){
+    User.findOne({username: req.body.user}, function(err, user){
         if(!user) {
             done(false)
-        } else {
+        }else if(err){
+            done(false);
+        }
+        else {
             done(null, user);
         }
-    }).catch(function(e){
-        done(false);
     });
 }));
 

@@ -3,21 +3,19 @@
  */
 'use strict';
 
-module.exports = function(sequelize, DataTypes){
-    var issue = sequelize.define("issue", {
-        id: {type: DataTypes.INTEGER, allowNull: false, primaryKey: true, autoIncrement: true},
-        title: {type: DataTypes.STRING, allowNull: false},
-        description: {type: DataTypes.STRING, allowNull: true},
-        //registrationDate: {type: DataTypes.DATE, allowNull: true},
-        //modificationDate: {type: DataTypes.DATE, allowNull: true},
-        solveDate: {type: DataTypes.DATE, allowNull: true}
-    }, {
-        classMethods: {
-            associate: function (models) {
-                issue.hasMany(models.link, {foreignKey: {allowNull: false},onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-            }
-        }
-    });
+var mongoose = require('mongoose');
+var config = require('../config/config');
 
-    return issue;
-};
+var issueSchema = mongoose.Schema({
+    title: {type: String, required: true},
+    description:{type: String, default: ''},
+    solveDate: {type: Date},
+    createdAt: {type: Date, required: true},
+    updateAt: {type: Date, required: true},
+    links: {type: [String]}
+}, {
+    collection: config.collection
+});
+
+var Issue = mongoose.model('Issue', issueSchema);
+module.exports = Issue;

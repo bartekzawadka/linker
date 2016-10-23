@@ -17,13 +17,13 @@ div(class='horizontal-center')
                         md-switch(class='md-primary', ng-model='form.isSolved') Oznacz jako rozwiązane
                         br
 
-                        div(ng-if='form.id')
+                        div(ng-if='form._id')
                             div(class='line')
                                 h5 Data rejestracji:
                                     span(ng-bind="form.createdAt | date: 'yyyy-MM-dd HH:mm:ss'")
                             div(class='line')
                                 h5 Data modyfikacji:
-                                    span(ng-bind="form.updatedAt | date: 'yyyy-MM-dd HH:mm:ss'")
+                                    span(ng-bind="form.updateAt | date: 'yyyy-MM-dd HH:mm:ss'")
                             div(ng-if='wasMarkedAsSolved', class='line')
                                 h5 Data rozwiązania:
                                     span(ng-bind="form.solveDate | date: 'yyyy-MM-dd HH:mm:ss'")

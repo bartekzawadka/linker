@@ -12,7 +12,6 @@ var Filtering = require('../modules/queryinterpreter');
 router.get('/getissues', function(req, res){
     var urlParts = url.parse(req.url, true);
 
-    //todo: Fix 'where' and sorting conditions
     var result = null;
     if(req.query && req.query.filter){
         var f = new Filtering();

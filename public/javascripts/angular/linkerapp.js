@@ -10,7 +10,6 @@ ngapp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
        when('/login', {templateUrl: 'login', controller: LoginCtrl}).
        when('/logout', {templateUrl: 'issues',controller: LogoutCtrl})
        .otherwise({redirectTo: '/'});
-    //$locationProvider.html5Mode({enabled: false, requireBase: false});
     $locationProvider.html5Mode(true);
 
 }]);

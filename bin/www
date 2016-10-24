@@ -9,8 +9,6 @@ var debug = require('debug')('linker:server');
 var http = require('http');
 var config = require('../config/config.json');
 var mongoose = require('mongoose');
-//var models = require('../models');
-//var User = req
 
 /**
  * Get port from environment and store in Express.
@@ -46,12 +44,6 @@ mongoose.connection.on('open', function(){
   server.on('error', onError);
   server.on('listening', onListening);
 });
-
-// models.sequelize.sync().then(function(){
-//   server.listen(port);
-//   server.on('error', onError);
-//   server.on('listening', onListening);
-// });
 
 /**
  * Normalize a port into a number, string, or false.

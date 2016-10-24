@@ -1,16 +1,16 @@
 {
+  "collection": "Issues",
+
   "development": {
     "username": "user",
     "password": "pass",
     "database": "db",
-    "host": "192.168.1.113",
-    "dialect": "postgres"
+    "host": "192.168.1.113"
   },
   "production": {
-    "username": "user",
-    "password": "pass",
-    "database": "db_test",
-    "host": "192.168.1.113",
-    "dialect": "postgres"
+    "username": "linker_user",
+    "password": "dba154",
+    "database": "linker",
+    "host": "esmeralda.westeurope.cloudapp.azure.com"
   }
 }

@@ -6,7 +6,7 @@ var express = require('express');
 var router = express.Router();
 var Issue = require('../models/issue');
 var url = require('url');
-var Filtering = require('kendo-grid-filter-sequelize-converter');
+var Filtering = require('../modules/queryinterpreter');
 
 /** Gets all issues paginated, filtered and sorted*/
 router.get('/getissues', function(req, res){
@@ -24,10 +24,12 @@ router.get('/getissues', function(req, res){
         sorting = [[]];
         sorting[0].push(req.query.sort[0].field);
         if(req.query.sort[0].dir == 'desc')
-        sorting[0].push(req.query.sort[0].dir.toUpperCase());
+            sorting[0].push(-1);
+        if(req.query.sort[0].dir == 'asc')
+        sorting[0].push(1);
     }
-
-    Issue.count({}, function(error, count){
+    
+    Issue.count(result, function(error, count){
         var data = {count: count};
 
         Issue.find({}).where(result).sort(sorting).skip(parseInt(urlParts.query.skip)).limit(parseInt(urlParts.query.take)).exec(function(error, r){

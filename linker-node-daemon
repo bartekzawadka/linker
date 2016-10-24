@@ -1,13 +1,13 @@
 #! /bin/bash
 #
-# Author: Bartosz Zawadka, 2015
+# Author: Bartosz Zawadka, 2016
 #
 # Contact: kontakt@bartoszzawadka.pl
 #
-# /etc/init.d/linker-node-daemon
+# /etc/init.d/linkerd
 #
 ### BEGIN INIT INFO
-# Provides: linker-node-daemon
+# Provides: linkerd
 # Required-Start: $remote_fs $syslog $network
 # Required-Stop: $remote_fs $syslog $network
 # Default-Start: 2 3 4 5
@@ -16,10 +16,10 @@
 # Descirption: Linker Node.js application server daemon
 ### END INIT INFO
 
-PIDFILE=/var/run/linker-daemon.pid
+PIDFILE=/var/run/linkerd.pid
 USER=root
 CHUID=root
-STARTAS=/usr/bin/node
+STARTAS=/usr/bin/nodejs
 ARGS=/srv/linker/bin/www
 RTIME=10
 
@@ -38,7 +38,7 @@ case "$1" in
 		$0 start
 		;;
 	*)
-		echo "Invalid command. Usage: /etc/init.d/linker-node-daemon {start|stop|restart}"
+		echo "Invalid command. Usage: /etc/init.d/linkerd {start|stop|restart}"
 		exit 1
 		;;
 esac
